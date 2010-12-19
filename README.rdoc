@@ -1,0 +1,75 @@
+= MagicDoor Generator
+
+Generates custom button images with RMagick using the famous {sliding doors css tehnique}[http://www.alistapart.com/articles/slidingdoors].
+
+
+== A brief introduction
+
+While it can be argued that this functionality is being preceded by CSS 3, this code provides a happy crossbrowser experience, backed by the ability of using copyrighted fonts.
+
+The script works by splitting a large wide image into two narrow ones that accomodate the length of a provided text. The location where the split ocurrs can be specified as an optional parameter.
+
+
+== Generating buttons
+
+Bellow you'll find a simple example of creating an image button:
+
+  options = {
+    :text       => "Please click me"
+    :image      => "wide-button-template.png"
+    :file_name  => "click-me.png",
+    :css        => "color: #333; font-size: 25"
+  }
+
+  file = MagicDoor.new(options)
+  file.save
+
+You may set defaults in order to make subsequent calls simpler:
+
+  MagicDoor.defaults.merge!({
+    :source_path      => "/project/path/buttons",
+    :destination_path => "/project/path/buttons/cache",
+    :split_at         => 11,
+    :css              => "padding: 10;
+                          font-weight: bold;
+                          font-size: 14;
+                          color: #fff; text-align: center;
+                          text-shadow: #cecefe 0 1;
+                          font: '/project/path/fonts/MyriadPro-Semibold.otf"
+  })
+
+
+== Limitations
+
+All CSS sizes are calculated in pixels, so you should not add any measurement units after the numbers.
+
+The padding property does not affect the top and bottom region.
+
+Parsing the CSS and mapping it to RMagick is somewhat tendious, as such there are only a few css properties supported. Please consult the docs for a complete list.
+
+
+== Command Line
+
+You can run MagicDoor from the command line:
+
+  $ magic-door -t "hello world" -i "/home/daniel/Desktop/button.png" -f "/home/daniel/hello.png"
+
+
+== Source code
+
+The source code is hosted on Github: http://github.com/viseztrance/magic_door
+
+To get MagicDoor from source:
+
+  git clone git@github.com:viseztrance/magic_door.git
+
+
+== Acknowledgements
+
+I would like to thank {OkapiStudio}[http://okapistudio.com] - my employer for allowing me to share this code.
+
+
+== License
+
+This package is licensed under the MIT license and/or the Creative
+Commons Attribution-ShareAlike.

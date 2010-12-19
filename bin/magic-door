@@ -1,0 +1,41 @@
+#!/usr/bin/env ruby
+
+require "optparse"
+require "magic_door"
+
+options = {}
+
+ARGV.options do |opt|
+  script_name = File.basename($0)
+
+  opt.set_summary_indent("  ")
+  opt.banner = "Usage: #{script_name} [options]"
+  opt.define_head "Generates custom button images with RMagick using the famous sliding doors css tehnique."
+  opt.separator ""
+
+  opt.on("-t", "--text=val", String,
+         "Text shown on the button, eg. \"click me\"") { |options[:text]| }
+  opt.on("-i", "--image=val", String,
+         "Path to the existing image that will be used as a template, eg. \"/home/me/rails/public/images/button.png\"") { |options[:image]| }
+  opt.on("-f", "--file=val", String,
+         "Path of the saved image, eg. \"/home/me/rails/public/images/cache/click-me.png\"") { |options[:file_name]| }
+  opt.on("-c", "--css=val", String,
+         "Css expression, eg. \"font-weight: bold; font-size: 25\"") { |options[:css]| }
+  opt.on("-s", "--split=val", String,
+         "The location where the template image be split in two.") { |options[:split_at]| }
+
+  opt.separator ""
+
+  opt.on_tail("-h", "--help", "Show this help message.") { puts opt; exit }
+  opt.on_tail("-v", "--version", "Show version") { puts script_name + ' ' + MagicDoor::VERSION; exit }
+
+  opt.parse!
+end
+
+if options[:text].nil? || options[:image].nil? || options[:file_name].nil?
+  puts %q|Insufficient arguments.
+The "text" (-t), "image" (-i) and "file" (-f) options are required. -h for additional information.|
+else
+  saved_file = MagicDoor.new(options).save
+  puts "Wrote #{saved_file.inspect}."
+end

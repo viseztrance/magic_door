@@ -9,6 +9,8 @@ While it can be argued that this functionality is being preceded by CSS 3, this 
 
 The script works by splitting a large wide image into two narrow ones that accomodate the length of a provided text. The location where the split ocurrs can be specified as an optional parameter.
 
+If you're using rails be sure to check out the {custom helpers}[http://github.com/viseztrance/magic_door_helpers].
+
 
 == Generating buttons
 

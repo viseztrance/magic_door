@@ -1,6 +1,6 @@
 spec = Gem::Specification.new do |spec|
   spec.name = "magic_door"
-  spec.version = "0.1.0b"
+  spec.version = "0.1.1"
   spec.summary = "MagicDoor generator"
   spec.description = <<-EOF
 Generates custom button images with RMagick using the famous sliding doors css tehnique.
